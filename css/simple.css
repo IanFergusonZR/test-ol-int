@@ -1,0 +1,36 @@
+.button-wrapper{
+    margin-top: 50px;
+    margin-bottom: 50px; 
+}
+img {
+    max-width: 100%;
+    max-heigh: 100%;
+}
+h2 {
+    margin: 15px; 
+}
+.olapic-gallery{
+   
+}
+.olapic-images{
+    overflow: auto;
+    padding-bottom: 50px;
+}
+.olapic-image{
+  margin-top: 15px; 
+}
+.full-gallery{
+    background-color: #838383;
+    color: white;
+}
+.partial-gallery{
+    background-color: #ccc;
+    color: white;
+}
+.empty-gallery{
+    background-color: #000;
+    color: white; 
+}
+#olapic-modal-image{
+    border-bottom: 2px solid black;    
+}

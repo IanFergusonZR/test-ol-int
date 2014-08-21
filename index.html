@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="eng">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Nixon Olapic Feed</title>	 
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/simple.css" rel="stylesheet">
+	</head>
+    
+	<body>
+        <!-- Bootstrap Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>                        
+                    </div>
+                    <div class="modal-body" >
+                        <div id="olapic-modal-image">
+                            <!-- hbs templates populates this space with image and uploader -->
+                        </div>                        
+                        <div id="olapic-modal-product">
+                            <!-- hbs template populates this space with product info -->
+                        </div>                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Simple UI -->
+		<div class="container">               
+			<div class="row">            
+                <h1>Nixon Olapic Prototype</h1> 
+                <div class="button-wrapper">                
+                    Product Id: <input type="text" name="productId"><br>
+                    <button type="button" class="btn btn-default" id="load0">Go!</button>     
+                    <button type="button" class="btn btn-link hidden" id="startOver">Start Over</button>  
+                </div>
+                <div class="olapic-gallery">  
+                    <!-- hbs templates populate this space -->
+                </div>
+            </div>
+            
+		</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="js/handlebars-v1.3.0.js"></script>
+	<script src="js/script.js" type="text/javascript"></script> 
+	</body>
+</html>
