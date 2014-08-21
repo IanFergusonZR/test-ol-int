@@ -148,7 +148,7 @@ ZR.olapic = {
                 });
         }
         
-        var instance_id = 'some_instance_id';
+        var instance_id = '123456';
         var stream_id = ZR.olapic.streamObj.stream_id;
         //var media_id = '2123797308';
         var action = 'click'; //make this an arg
