@@ -119,6 +119,9 @@ ZR.olapic = {
     
         //get our cookie value
         ZR.olapic.olapicCookiedAnalyticsId = 'aRandomInt';
+        
+        var cookieVal = $.cookie('__olapicU');
+        console.log('cookieValue is ' + cookieVal);
     
     
     },
