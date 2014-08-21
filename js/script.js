@@ -53,7 +53,6 @@ ZR.olapic = {
     streamId : '',       
     
     olapicCookiedAnalyticsId : '',
-    
     // global variables
     imageLowerLimit : 6,       // update this value to define the breakpoint between "partial" and "full" gallery.
     counter : 0,
@@ -95,6 +94,21 @@ ZR.olapic = {
             // enable Go! button
             ZR.olapic.enableLoadingButtons();                                     
             
+            
+            //get our cookie value
+            ZR.olapic.olapicCookiedAnalyticsId = 'aRandomInt';
+        
+            var cookieVal = $.cookie('__olapicU');
+            console.log('cookieValue is ' + cookieVal);
+            if(typeof cookieVal == 'undefined') {
+                $.cookie('__olapicU', '12345678', {
+                    expires : 30,
+                    domain : "." + window.location.host,
+                    path : '/'
+                });
+            }
+
+            
         });     
     },    
     // disable Go!, enable Start Over
@@ -117,13 +131,69 @@ ZR.olapic = {
     
     initOlapicSettings : function(){
     
-        //get our cookie value
-        ZR.olapic.olapicCookiedAnalyticsId = 'aRandomInt';
+    
+    
+    },
+
+    callOlapicAnalytics : function() {
+        //check for our cookie - set one if we don't have one
         
-        var cookieVal = $.cookie('__olapicU');
-        console.log('cookieValue is ' + cookieVal);
-    
-    
+        var instance_id = 'some_instance_id';
+        var stream_id = ZR.olapic.streamObj.stream_id;
+        var media_id = '';
+        var action = ''; //make this an arg
+        var thumbCount = '';
+
+        var auth_token = 'f6bf41a57927ce8c83b68e34ba24db85f74170f4952b907beef03a9001c3339f';
+        var url = 'https://analytics.photorank.me/customers/215852/track/widget/' + instance_id 
+                    + /stream/ + stream_id 
+                    + /media/ + media_id + 
+                    + '/' + action + '?analytics_id=' + analytics_id +
+                    + '&pics=' + thumbCount;
+                    + '&auth_token=' + auth_token;
+                    //ab_testing,segment}';   //  get stream by product id   
+              
+        console.log("Full Url: " + loadUrl); 
+              
+        $.when(                 
+            $.ajax({
+                type : 'GET',
+                url : loadUrl,
+                dataType: 'jsonp',                
+                success : function(response){        
+                    if (typeof response !== 'undefined'){ 
+                    
+                        console.log(response); 
+                        
+                        // response is a stream.  grab its product data. build a thing that we can pass to hbs template.               
+                        streamId = response.data.id;                                                 
+                                                                        
+                        ZR.olapic.streamObj = {};                        
+                        ZR.olapic.streamObj["stream_name"] = response.data.name;
+                        ZR.olapic.streamObj["stream_id"] = response.data.id;
+                        ZR.olapic.streamObj["stream_product_url"] = response.data.product_url;
+                        ZR.olapic.streamObj["stream_tag_based_key"] = response.data.tag_based_key; 
+                                                
+                        if (version == 'v2.0'){                        
+                            ZR.olapic.streamObj["stream_product_image"] = response.data._embedded.base_image._links.self.href;   // use this path for v2.0
+                        }
+                        else if (version == 'v2.1'){
+                            ZR.olapic.streamObj["stream_product_image"] = response.data._embedded.base_image.images.normal; 
+                        }                        
+                        // these attributes are not available on the object returned by v2.0
+                        if (version == 'v2.1'){                        
+                            ZR.olapic.streamObj["stream_product_availability"] = response.data.product_info.availability;
+                            ZR.olapic.streamObj["stream_product_price"] = response.data.product_info.price;
+                        }
+                        
+                        // now we know the stream id.  use that to get the media set.                        
+                        ZR.olapic.getOlapicMediaByStreamId(streamId); 
+                        
+                    }
+                }            
+            })               
+        );        
+        
     },
     
     
@@ -202,6 +272,7 @@ ZR.olapic = {
                         // response contains media.  grab the image set.  build a json thing that we can pass to hbs template.                           
                         ZR.olapic.mediaObj = {};        
                         ZR.olapic.mediaObj["images"] = response.data._embedded.media; 
+                        //TODO : may need to grab media_id
                         
                     }
                 }            
@@ -273,6 +344,8 @@ ZR.olapic = {
             
             //make our analytics request
             console.log('fire our analytics request for thumnail click with sessionId : ' + ZR.olapic.olapicCookiedAnalyticsId);
+            //use the stream object to get at our stream id
+            ZR.olapic.callOlapicAnalytics();
             
         }); 
     },               
