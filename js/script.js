@@ -137,13 +137,23 @@ ZR.olapic = {
 
     callOlapicAnalytics : function() {
         //check for our cookie - set one if we don't have one
+        var analytics_id = $.cookie('__olapicU');
+        if(typeof analytics_id == 'undefined') {
+            //use a timestamp(s) + random between 1..10000
+            analytics_id = (new Date().getTime()) + '-' + (Math.floor((Math.random() * 10000) + 1));
+            $.cookie('__olapicU', analytics_id, {
+                    expires : 30,
+                    domain : "." + window.location.host,
+                    path : '/'
+                });
+        }
         
         var instance_id = 'some_instance_id';
         var stream_id = ZR.olapic.streamObj.stream_id;
         var media_id = '2123797308';
         var action = 'click'; //make this an arg
         var thumbCount = '7';
-        var analytics_id = '12345678'; //get this from our cookie
+        //var analytics_id = '12345678'; //get this from our cookie
 
         var auth_token = 'f6bf41a57927ce8c83b68e34ba24db85f74170f4952b907beef03a9001c3339f';
         var loadUrl = 'https://analytics.photorank.me/'
