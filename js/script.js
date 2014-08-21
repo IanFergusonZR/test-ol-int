@@ -135,7 +135,7 @@ ZR.olapic = {
     
     },
 
-    callOlapicAnalytics : function() {
+    callOlapicAnalytics : function(media_id) {
         //check for our cookie - set one if we don't have one
         var analytics_id = $.cookie('__olapicU');
         if(typeof analytics_id == 'undefined') {
@@ -150,9 +150,9 @@ ZR.olapic = {
         
         var instance_id = 'some_instance_id';
         var stream_id = ZR.olapic.streamObj.stream_id;
-        var media_id = '2123797308';
+        //var media_id = '2123797308';
         var action = 'click'; //make this an arg
-        var thumbCount = '7';
+        var thumbCount = ZR.olapic.mediaObj.images.length;
         //var analytics_id = '12345678'; //get this from our cookie
 
         var auth_token = 'f6bf41a57927ce8c83b68e34ba24db85f74170f4952b907beef03a9001c3339f';
@@ -353,12 +353,14 @@ ZR.olapic = {
                 }); 
             
             // show modal
-            $('#myModal').modal()
+            $('#myModal').modal();
             
             //make our analytics request
             console.log('fire our analytics request for thumnail click with sessionId : ' + ZR.olapic.olapicCookiedAnalyticsId);
+            
+            var media_id = $(this).attr('data-media-id'); 
             //use the stream object to get at our stream id
-            ZR.olapic.callOlapicAnalytics();
+            ZR.olapic.callOlapicAnalytics(media_id);
             
         }); 
     },               
