@@ -1,5 +1,5 @@
 {{!This template is used to show a set of olapic thumbnails}}	
 
 {{#each images}}
-  <a href="#" class="col-xs-3"><img class="olapic-image" id={{@index}} src="{{images.mobile}}" /></a>  
+  <a href="#" class="col-xs-3"><img class="olapic-image" data-media-id={{images.id}} id={{@index}} src="{{images.mobile}}" /></a>  
 {{/each}}  
