@@ -52,6 +52,8 @@ ZR.olapic = {
     streamObj : {},
     streamId : '',       
     
+    olapicCookiedAnalyticsId : '',
+    
     // global variables
     imageLowerLimit : 6,       // update this value to define the breakpoint between "partial" and "full" gallery.
     counter : 0,
@@ -115,7 +117,8 @@ ZR.olapic = {
     
     initOlapicSettings : function(){
     
-    
+        //get our cookie value
+        ZR.olapic.olapicCookiedAnalyticsId = 'aRandomInt';
     
     
     },
@@ -264,6 +267,9 @@ ZR.olapic = {
             
             // show modal
             $('#myModal').modal()
+            
+            //make our analytics request
+            console.log('fire our analytics request for thumnail click with sessionId : ' + ZR.olapic.olapicCookiedAnalyticsId);
             
         }); 
     },               
