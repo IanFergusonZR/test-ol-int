@@ -143,13 +143,14 @@ ZR.olapic = {
         var media_id = '';
         var action = ''; //make this an arg
         var thumbCount = '';
+        var analytics_id = '12345678'; //get this from our cookie
 
         var auth_token = 'f6bf41a57927ce8c83b68e34ba24db85f74170f4952b907beef03a9001c3339f';
-        var url = 'https://analytics.photorank.me/customers/215852/track/widget/' + instance_id 
+        var loadUrl = 'https://analytics.photorank.me/customers/215852/track/widget/' + instance_id 
                     + /stream/ + stream_id 
                     + /media/ + media_id + 
                     + '/' + action + '?analytics_id=' + analytics_id +
-                    + '&pics=' + thumbCount;
+                    + '&pics=' + thumbCount
                     + '&auth_token=' + auth_token;
                     //ab_testing,segment}';   //  get stream by product id   
               
