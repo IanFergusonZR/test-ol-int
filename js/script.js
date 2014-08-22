@@ -174,7 +174,7 @@ ZR.olapic = {
                 url : loadUrl,
                 dataType: 'jsonp',                
                 success : function(response){        
-                    console.log('analytics got response : ' + JSON.stringify(response);
+                    console.log('analytics got response : ' + JSON.stringify(response));
                 },
                 error : function() {
                     console.log('analytics ajax call failed.')
