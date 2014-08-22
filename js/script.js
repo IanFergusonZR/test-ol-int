@@ -135,7 +135,7 @@ ZR.olapic = {
     
     },
 
-    callOlapicAnalytics : function(media_id) {
+    streamWidgetMediaActionAnalytics : function(media_id, action) {
         //check for our cookie - set one if we don't have one
         var analytics_id = $.cookie('__olapicU');
         if(typeof analytics_id == 'undefined') {
@@ -149,13 +149,10 @@ ZR.olapic = {
         }
         
         //this is our dummy gallery id - created manually in olapic admin
-        var instance_id = 'f84546a7240218032caedb062fc84d9a';
+        var instance_id = 'f84546a7240218032caedb062fc84d9a'; //TODO : this will most likely be an arg too
         var stream_id = ZR.olapic.streamObj.stream_id;
-        //var media_id = '2123797308';
-        var action = 'click'; //make this an arg
         var thumbCount = ZR.olapic.mediaObj.images.length;
-        //var analytics_id = '12345678'; //get this from our cookie
-
+        
         var auth_token = 'f6bf41a57927ce8c83b68e34ba24db85f74170f4952b907beef03a9001c3339f';
         var loadUrl = 'https://analytics.photorank.me/'
                     + 'track/widget/' + instance_id 
@@ -166,7 +163,7 @@ ZR.olapic = {
                     + '&auth_token=' + auth_token;
                     //ab_testing,segment}';   //  get stream by product id   
               
-        console.log("analytics request url : " + loadUrl); 
+        console.log("streamWidgetMediaActionAnalytics request url : " + loadUrl); 
               
         $.when(                 
             $.ajax({
@@ -174,10 +171,10 @@ ZR.olapic = {
                 url : loadUrl,
                 dataType: 'jsonp',                
                 success : function(response){        
-                    console.log('analytics got response : ' + JSON.stringify(response));
+                    console.log('streamWidgetMediaActionAnalytics got response : ' + JSON.stringify(response));
                 },
                 error : function() {
-                    console.log('analytics ajax call failed.')
+                    console.log('streamWidgetMediaActionAnalytics ajax call failed.')
                 }
             })               
         );        
@@ -335,7 +332,7 @@ ZR.olapic = {
             
             var media_id = $(this).attr('data-media-id'); 
             //use the stream object to get at our stream id
-            ZR.olapic.callOlapicAnalytics(media_id);
+            ZR.olapic.streamWidgetMediaActionAnalytics(media_id, 'click');
             
         }); 
     },               
