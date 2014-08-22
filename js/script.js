@@ -94,21 +94,6 @@ ZR.olapic = {
             // enable Go! button
             ZR.olapic.enableLoadingButtons();                                     
             
-            
-            //get our cookie value
-            ZR.olapic.olapicCookiedAnalyticsId = 'aRandomInt';
-        
-            var cookieVal = $.cookie('__olapicU');
-            console.log('cookieValue is ' + cookieVal);
-            if(typeof cookieVal == 'undefined') {
-                $.cookie('__olapicU', '12345678', {
-                    expires : 30,
-                    domain : "." + window.location.host,
-                    path : '/'
-                });
-            }
-
-            
         });     
     },    
     // disable Go!, enable Start Over
@@ -137,6 +122,7 @@ ZR.olapic = {
 
     streamWidgetMediaActionAnalytics : function(media_id, action) {
         //check for our cookie - set one if we don't have one
+        //this can be moved to our pageload...ZR.olapic variable eventually
         var analytics_id = $.cookie('__olapicU');
         if(typeof analytics_id == 'undefined') {
             //use a timestamp(s) + random between 1..10000
